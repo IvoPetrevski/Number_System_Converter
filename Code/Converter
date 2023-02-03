@@ -1,0 +1,53 @@
+using System;
+
+namespace NumberSystems
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            int firstSystem, secondSystem, n, transition = 0, u;
+            string number, secondConvert = "";
+            double firstConvert = 0;
+            Console.WriteLine("Enter a number system.");
+            firstSystem = int.Parse(Console.ReadLine());
+            Console.WriteLine("Ennter a number.");
+            number = Console.ReadLine();
+            Console.WriteLine("Enter a second number system.");
+            secondSystem = int.Parse(Console.ReadLine());
+            n = number.Length;
+            for (int i = n - 1; i >= 0; i--)  
+            {
+                if (number[i] >= '0' && number[i] <= '9')
+                {
+                    firstConvert += (number[i] - 48) * Math.Pow(firstSystem, n - 1 - i);
+                }
+                else
+                {
+                    firstConvert += (number[i] - 55) * Math.Pow(firstSystem, n - 1 - i);
+                }
+            }
+            transition = (int)firstConvert;
+            while (transition != 0)
+            {
+                u = transition % secondSystem;
+                transition = transition / secondSystem;
+                if (u <= 9)
+                {
+                    secondConvert += (char)(u + 48);
+                }
+                else
+                {
+                    secondConvert += (char)(u + 55);
+                }
+            }
+            n = secondConvert.Length;
+            number = "";
+            for (int i = n - 1; i >= 0; i--) 
+            {
+                number += secondConvert[i];
+            }
+            Console.WriteLine(number);
+        }
+    }
+}
